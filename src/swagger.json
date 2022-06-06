@@ -1,0 +1,368 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Entrega Kenzie Courses",
+    "description": "Api para cadastro de cursos",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api-documentation",
+      "description": "test"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "Cadastra um novo usuário",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "examples": {
+              "user": {
+                "values": {
+                  "firstName": "John",
+                  "lastname": "Doe",
+                  "email": "jhondoe@kenzie.com.br",
+                  "password": "senhaforte!",
+                  "age": 25
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid credentials"
+          },
+          "409": {
+            "description": "Email already exists."
+          },
+          "201": {
+            "description": "OK",
+            "content": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Get users"
+        ],
+        "description": "Obtém todos os usuários",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "User login"
+        ],
+        "description": "Login do usuário",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLogin"
+              }
+            },
+            "examples": {
+              "user": {
+                "values": {
+                  "email": "jhondoe@kenzie.com.br",
+                  "password": "senhaforte!"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/UserLoginToken"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/:id": {
+      "patch": {
+        "tags": [
+          "Update user"
+        ],
+        "description": "Atualiza um usuário",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "examples": {
+              "user": {
+                "values": {
+                  "email": "jhondoe@kenzie.com.br",
+                  "password": "senhaforte!"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/UserLoginToken"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Get user by id"
+        ],
+        "description": "Obtém um usuário",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/UserLoginToken"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/courses": {
+      "post": {
+        "tags": [
+          "Courses"
+        ],
+        "description": "Cadastra um novo curso",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Course"
+              }
+            },
+            "examples": {
+              "course": {
+                "values": {
+                  "courseName": "HTML5",
+                  "duration": "3 meses"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/CourseCreated"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Get courses"
+        ],
+        "description": "get all courses",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Course"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "courses/:id": {
+      "patch": {
+        "tags": [
+          "Update course"
+        ],
+        "description": "update one course",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseUpdate"
+              }
+            },
+            "examples": {
+              "course": {
+                "values": {
+                  "courseName": "HTML5",
+                  "duration": "3 meses"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Course"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "UserLogin": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "UserLoginToken": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "UserLoginResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "isAdm": {
+            "type": "boolean",
+            "default": false
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "courses": {
+            "type": "array"
+          }
+        }
+      },
+      "Course": {
+        "type": "object",
+        "properties": {
+          "coursename": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "string"
+          }
+        }
+      },
+      "CourseUpdate": {
+        "type": "object",
+        "properties": {
+          "duration": {
+            "type": "string"
+          }
+        }
+      },
+      "CourseCreated": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "coursename": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
