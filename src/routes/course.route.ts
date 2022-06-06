@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { courseController } from "../controllers";
+import signInCourseController from "../controllers/signInCourse.controller";
 import { validateSchema, validateToken, verifyPermission } from "../middlewares";
 import { courseSchema, courseUpdateSchema } from "../schemas";
 
@@ -20,5 +21,5 @@ courseRouter.patch(
   validateSchema(courseUpdateSchema),
   courseController.updateCourse
 );
-
+courseRouter.post("/courses/:id/users",validateToken, signInCourseController.signInCourse);
 export default courseRouter;
