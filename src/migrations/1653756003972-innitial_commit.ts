@@ -15,11 +15,11 @@ export class innitialCommit1653756003972 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "courses_students_users" ADD CONSTRAINT "FK_da070fe9a0fe297e5cf57809291" FOREIGN KEY ("usersId") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(
             `
-              INSERT INTO "users" ("firstName", "lastName", "email", "password", "isAdm")
+              INSERT INTO "users" ("firstName", "lastName", "email", "password", "isAdm", "createdAt", "updatedAt", "courses)
               VALUES ('kenzie', 'kenzinho', '${process.env.ADMIN_EMAIL}', '${hashSync(
               process.env.ADMIN_PASSWORD,
               10
-            )}', true)
+            )}', true, ${new Date().toISOString()} , ${new Date().toISOString()}, '[]')
             `
           );
     
